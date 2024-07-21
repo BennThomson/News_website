@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+</head>
+<body>
+    <h1>
+        News
+    </h1>
+    
+    {% for new in news_list %}
+        <a href="{% url 'news_detail' new.id %}">
+            <h4>{{ new.title }}</h4>
+        </a>
+        <br>
+        
+    {% endfor %}
+</body>
+</html>
+
