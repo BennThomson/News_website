@@ -1,13 +1,13 @@
-
-/*Template Name: NewsFeed*/
-/*Template URI: http://www.wpfreeware.com/newsfeed-ultra-responsive-news-magazine-theme/*/
-/*Author: WpFreeware*/
-/*Author URI: http://www.wpfreeware.com*/
-/*Description: A Pro bootstrap html5 css3 responsive news magazine website template*/
-/*Version: 1.0 */
-/*License: GPL*/
-/*License URI: http://www.gnu.org/licenses/gpl-2.0.html*/
-
+/*
+Template Name: NewsFeed
+Template URI: http://www.wpfreeware.com/newsfeed-ultra-responsive-news-magazine-theme/
+Author: WpFreeware
+Author URI: http://www.wpfreeware.com
+Description: A Pro bootstrap html5 css3 responsive news magazine website template
+Version: 1.0 
+License: GPL
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
 
 body {
     background: #f5f5f5
@@ -204,7 +204,7 @@ img:hover {
     position: absolute;
     left: 50%;
     top: 50%;
-    background-image:  url("{% ur %}");
+    background-image: url(images/status.gif);
     background-repeat: no-repeat;
     background-position: center;
     margin: -100px 0 0 -100px
@@ -488,7 +488,7 @@ img:hover {
 }
 
 .social_nav li.facebook a {
-    background-image: url("images/socials.png");
+    background-image: url("../images/socials.png");
     background-position: 0 -30px;
     background-size: 270px 60px
 }
@@ -500,7 +500,7 @@ img:hover {
 }
 
 .social_nav li.twitter a {
-    background-image: url("images/socials.png");
+    background-image: url("../images/socials.png");
     background-position: -30px -30px;
     background-size: 270px 60px
 }
@@ -512,7 +512,7 @@ img:hover {
 }
 
 .social_nav li.flickr a {
-    background-image: url("images/socials.png");
+    background-image: url("../images/socials.png");
     background-position: -60px -30px;
     background-size: 270px 60px
 }
@@ -524,7 +524,7 @@ img:hover {
 }
 
 .social_nav li.pinterest a {
-    background-image: url("images/socials.png");
+    background-image: url("../images/socials.png");
     background-position: -90px -30px;
     background-size: 270px 60px
 }
@@ -536,7 +536,7 @@ img:hover {
 }
 
 .social_nav li.googleplus a {
-    background-image: url("images/socials.png");
+    background-image: url("../images/socials.png");
     background-position: -120px -30px;
     background-size: 270px 60px
 }
@@ -548,7 +548,7 @@ img:hover {
 }
 
 .social_nav li.vimeo a {
-    background-image: url("images/socials.png");
+    background-image: url("../images/socials.png");
     background-position: -150px -30px;
     background-size: 270px 60px
 }
@@ -560,7 +560,7 @@ img:hover {
 }
 
 .social_nav li.youtube a {
-    background-image: url("images/socials.png");
+    background-image: url("../images/socials.png");
     background-position: -180px -30px;
     background-size: 270px 60px;
     width: 60px
@@ -573,7 +573,7 @@ img:hover {
 }
 
 .social_nav li.mail a {
-    background-image: url("images/socials.png");
+    background-image: url("../images/socials.png");
     background-position: -240px -30px;
     background-size: 270px 60px;
     width: 32px
@@ -638,7 +638,7 @@ img:hover {
 }
 
 .slick-prev {
-    background-image: url(images/slider_prev.png);
+    background-image: url("../images/slider_prev.png");
     background-repeat: no-repeat;
     background-position: center;
     left: 10px
@@ -649,7 +649,7 @@ img:hover {
 }
 
 .slick-next {
-    background-image: url(images/slider_next.png);
+    background-image: url("../images/slider_next.png");
     background-repeat: no-repeat;
     background-position: center;
     left: 60px
@@ -1886,4 +1886,4 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
         .nav-tabs > li {
             width: 32.1%
         }
-    }
+    }}
