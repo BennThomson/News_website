@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import NewsModel, Category
+from .models import NewsModel, Category, ContactModel
 
+admin.site.register(ContactModel)
 
 @admin.register(NewsModel)
 class NewsAdmin(admin.ModelAdmin):

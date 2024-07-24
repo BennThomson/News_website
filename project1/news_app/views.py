@@ -1,8 +1,9 @@
 from urllib import request
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import detail
 from .models import NewsModel, Category
-
+from .forms import ContactForm
 
 def NewsView(request):
     news_list = NewsModel.published.all()
@@ -43,4 +44,18 @@ def ErrorView(request):
 def aboutView(request):
     context = {}
     return render(request, template_name='news/about_page.html', context=context)
+
+
+def contactView(request):
+    print(request.POST)
+    form = ContactForm(request.POST)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return HttpResponse("Hush kelibsiz")
+        # return redirect('contact_page')
+    context = {
+        'form': form
+    }
+
+    return render(request, 'news/contact.html', context=context)
 
