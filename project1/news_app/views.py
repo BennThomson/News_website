@@ -1,7 +1,7 @@
 from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import detail
+from django.views.generic import detail, ListView
 from .models import NewsModel, Category
 from .forms import ContactForm
 
@@ -18,17 +18,38 @@ def news_detail(request, id):
     context = {
         'news': news
     }
-    return render(request, 'news/news-detail.html', context)
+    return render(request, 'news/single_page.html', context)
 
 
-def homeView(request):
-    news = NewsModel.published.all()
-    categories = Category.objects.all()
-    context = {
-        'news': news,
-        'categories': categories
-    }
-    return render(request, template_name='news/home.html', context=context)
+# def homeView(request):
+#     latest_news = NewsModel.published.all().order_by('-published_time')[:5]
+#     news = NewsModel.published.all()
+#     categories = Category.objects.all()
+#     iqdisodiyot_news = NewsModel.published.all().filter(category__name='Iqdisodiyot')
+#     local_top_one_new = NewsModel.published.filter(category__name='Iqdisodiyot').order_by('-published_time')[:1]
+#     context = {
+#         'news': news,
+#         'categories': categories,
+#         'latest_news': latest_news,
+#         'local_news': iqdisodiyot_news,
+#         'local_new_one': local_top_one_new
+#     }
+#     return render(request, template_name='news/home.html', context=context)
+
+class HomeView(ListView):
+    model = NewsModel
+    template_name = 'news/home.html'
+    context_object_name = 'news'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['latest_news'] = NewsModel.published.all().order_by('-published_time')[:5]
+        context['iqdisodiyot_news'] = NewsModel.published.all().filter(category__name='Iqdisodiyot').order_by('-published_time')[:5]
+        context['jamiyat_news'] = NewsModel.published.all().filter(category__name='Jamiyat').order_by('-published_time')[:5]
+        context['texnologiya_news'] = NewsModel.published.all().filter(category__name='Fan-texnika').order_by('-published_time')[:5]
+        context['sport_news'] = NewsModel.published.all().filter(category__name='Sport').order_by('-published_time')[:5]
+        return context
 
 
 def contactView(request):
@@ -45,14 +66,12 @@ def aboutView(request):
     context = {}
     return render(request, template_name='news/about_page.html', context=context)
 
-
 def contactView(request):
-    print(request.POST)
     form = ContactForm(request.POST)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        return HttpResponse("Hush kelibsiz")
-        # return redirect('contact_page')
+        # return HttpResponse("Hush kelibsiz")
+        return redirect('contact_page')
     context = {
         'form': form
     }

@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-@o5zsj^$zq4f+yfxyp6d5ni6u!q@03wsbvi859cqs9gljod@^&
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,6 +42,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'news_app.context_processor.latest_news',
             ],
         },
     },
