@@ -3,10 +3,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>NewsFeed</title>  
+<title>
+    {% if request.META.title %}
+        {{ request.META.title }}
+    {% else %}
+        Home
+    {% endif %}
+</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block another-links %}
+    {% endblock %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}">
@@ -16,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/theme.css' %}">
      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+
 </head>
 <body>
     <div id="preloader">
@@ -35,7 +44,7 @@
                 </ul>
               </div>
               <div class="header_top_right">
-                <p>Tuesday, December 05, 2045</p>
+                <p>{% now 'jS F Y H:i' %}</p>
               </div>
             </div>
           </div>
@@ -55,20 +64,12 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav main_nav">
               <li class="active"><a href="{% url 'home' %}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-              <li><a href="#">Technology</a></li>
-              <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mobile</a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Android</a></li>
-                  <li><a href="#">Samsung</a></li>
-                  <li><a href="#">Nokia</a></li>
-                  <li><a href="#">Walton Mobile</a></li>
-                  <li><a href="#">Sympony</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Laptops</a></li>
-              <li><a href="#">Tablets</a></li>
-              <li><a href="{% url 'contact_page' %}">Contact Us</a></li>
-              <li><a href="{% url 'error' %}">404 Page</a></li>
+              <li><a href="{% url 'foreignNews' %}">Xorij</a></li>
+              <li><a href="{% url 'economyNews' %}">Iqdisodiyot</a></li>
+              <li><a href="{% url 'societyNews' %}">Jamiyat</a></li>
+              <li><a href="{% url 'technologyNews' %}">Texnologiya</a></li>
+              <li><a href="{% url 'sportNews' %}">Sport</a></li>
+              <li><a href="{% url 'contact_page' %}">Biz bilan Aloqa</a></li>
             </ul>
           </div>
         </nav>
@@ -115,14 +116,9 @@
           <div class="footer_widget wow fadeInDown">
             <h2>Tag</h2>
             <ul class="tag_nav">
-              <li><a href="#">Games</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Fashion</a></li>
-              <li><a href="#">Business</a></li>
-              <li><a href="#">Life &amp; Style</a></li>
-              <li><a href="#">Technology</a></li>
-              <li><a href="#">Photo</a></li>
-              <li><a href="#">Slider</a></li>
+                {% for category in categories %}
+              <li><a href="#">{{ category.name }}</a></li>
+                {% endfor %}
             </ul>
           </div>
         </div>
@@ -153,6 +149,8 @@
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static 'js/html5shiv.min.js' %}"></script>
 <script src="{% static 'js/respond.min.js' %}"></script>
+
+
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 
 class PublishedManager(models.Manager):
@@ -49,6 +50,9 @@ class NewsModel(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('news_detail', args=[self.slug])
+
 
 class ContactModel(models.Model):
     name = models.CharField(max_length=150)
@@ -61,4 +65,3 @@ class ContactModel(models.Model):
     class Meta:
         verbose_name = 'Contact'
         verbose_name_plural = 'Contacts'
-

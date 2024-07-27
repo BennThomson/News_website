@@ -5,7 +5,9 @@ from django.views.generic import detail, ListView
 from .models import NewsModel, Category
 from .forms import ContactForm
 
+
 def NewsView(request):
+    request.META['title'] = 'News'
     news_list = NewsModel.published.all()
     context = {
         'news_list': news_list
@@ -13,8 +15,9 @@ def NewsView(request):
     return render(request, 'news/news.html', context)
 
 
-def news_detail(request, id):
-    news = get_object_or_404(NewsModel, id=id, status=NewsModel.Status.Published)
+def news_detail(request, news):
+    request.META['title'] = 'News-detail'
+    news = get_object_or_404(NewsModel, slug=news, status=NewsModel.Status.Published)
     context = {
         'news': news
     }
@@ -52,22 +55,21 @@ class HomeView(ListView):
         return context
 
 
-def contactView(request):
-    context = {}
-    return render(request, template_name='news/contact.html', context=context)
-
-
 def ErrorView(request):
+    request.META['title'] = 'Error'
     context = {}
     return render(request, template_name='news/404.html', context=context)
 
 
 def aboutView(request):
+    request.META['title'] = 'About'
     context = {}
     return render(request, template_name='news/about_page.html', context=context)
 
+
 def contactView(request):
-    form = ContactForm(request.POST)
+    request.META['title'] = 'Contact'
+    form = ContactForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
         form.save()
         # return HttpResponse("Hush kelibsiz")
@@ -75,6 +77,51 @@ def contactView(request):
     context = {
         'form': form
     }
-
     return render(request, 'news/contact.html', context=context)
+
+
+def foreignNewsView(request):
+    request.META['title'] = 'Xorij yangiliklari'
+    foreign_news = NewsModel.published.filter(category__name='Jahon')
+    context = {
+        "foreign_news": foreign_news
+    }
+    return render(request, template_name='news/xorij.html', context=context)
+
+
+def economyNewsView(request):
+    request.META['title'] = 'Iqdisodiyot yangiliklari'
+    economy_news = NewsModel.published.filter(category__name='Iqdisodiyot')
+    context = {
+        "economy_news": economy_news
+    }
+    return render(request, template_name='news/iqdisodiyot.html', context=context)
+
+
+def societyNewsView(request):
+    request.META['title'] = 'Jamiyat Yangiliklari'
+    society_news = NewsModel.published.filter(category__name='Jamiyat')
+    context = {
+        "society_news": society_news
+    }
+    return render(request, template_name='news/jamiyat.html', context=context)
+
+
+def technologyNewsView(request):
+    request.META['title'] = 'Texnologiya Yangiliklari'
+    technology_news = NewsModel.published.filter(category__name='Fan-texnika')
+    context = {
+        "technology_news": technology_news
+    }
+    return render(request, template_name='news/texnologiya.html', context=context)
+
+
+def sportNewsView(request):
+    request.META['title'] = 'Sport'
+    sport_news = NewsModel.published.filter(category__name='Sport')
+    context = {
+        "sport_news": sport_news
+    }
+    return render(request, template_name='news/sport.html', context=context)
+
 

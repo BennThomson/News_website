@@ -8,9 +8,9 @@
           <div class="col-lg-8 col-md-8 col-sm-8">
             <div class="slick_slider">
                 {% for new in news %}
-                  <div class="single_iteam"> <a href="{% url 'news_detail' new.id %}"> <img src="{{ new.image.url }}" alt=""></a>
+                  <div class="single_iteam"> <a href="{{ new.get_absolute_url }}"> <img src="{{ new.image.url }}" alt=""></a>
                     <div class="slider_article">
-                      <h2><a class="slider_tittle" href="{% url 'news_detail' new.id %}">{{ new.title }}</a></h2>
+                      <h2><a class="slider_tittle" href="{{ new.get_absolute_url }}">{{ new.title }}</a></h2>
                       <p>{{ new.body|truncatewords:10 }}</p>
                     </div>
                   </div>
@@ -25,8 +25,8 @@
                 <ul class="latest_postnav">
                     {% for latest_new in latest_news %}
                       <li>
-                        <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src={{ latest_new.image.url }}> </a>
-                          <div class="media-body"> <a href="pages/single_page.html" class="catg_title">{{ latest_new.title }}</a> </div>
+                        <div class="media"> <a href="{{ latest_new.get_absolute_url }}" class="media-left"> <img alt="" src={{ latest_new.image.url }}> </a>
+                          <div class="media-body"> <a href="{{ latest_new.get_absolute_url }}" class="catg_title">{{ latest_new.title }}</a> </div>
                         </div>
                       </li>
                     {% endfor %}
@@ -49,8 +49,8 @@
                       {% for local_new in iqdisodiyot_news %}
                           {% if forloop.first %}
                                 <li>
-                                  <figure class="bsbig_fig"> <a href="{% url 'news_detail' local_new.id %}" class="featured_img"> <img alt="" src="{{ local_new.image.url }}"> <span class="overlay"></span> </a>
-                                    <figcaption> <a href="pages/single_page.html">{{ local_new.title | truncatewords:5 }}</a> </figcaption>
+                                  <figure class="bsbig_fig"> <a href="{{ local_new.get_absolute_url }}" class="featured_img"> <img alt="" src="{{ local_new.image.url }}"> <span class="overlay"></span> </a>
+                                    <figcaption> <a href="{{ local_new.get_absolute_url }}">{{ local_new.title | truncatewords:5 }}</a> </figcaption>
                                     <p>{{ topone.title }}</p>
                                   </figure>
                                 </li>
@@ -63,8 +63,8 @@
                       {% for local_new in iqdisodiyot_news %}
                           {% if forloop.counter > 1 %}
                                 <li>
-                                  <div class="media wow fadeInDown"> <a href="{% url 'news_detail' local_new.id %}" class="media-left"> <img alt="" src="{{ local_new.image.url }}"> </a>
-                                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title">{{ local_new.title }}</a> </div>
+                                  <div class="media wow fadeInDown"> <a href="{{ local_new.get_absolute_url }}" class="media-left"> <img alt="" src="{{ local_new.image.url }}"> </a>
+                                    <div class="media-body"> <a href="{{ local_new.get_absolute_url }}" class="catg_title">{{ local_new.title }}</a> </div>
                                   </div>
                                 </li>
                           {% endif %}
@@ -80,8 +80,8 @@
                         {% for new in jamiyat_news %}
                             {% if forloop.first %}
                       <li>
-                        <figure class="bsbig_fig"> <a href="{% url 'news_detail' new.id %}" class="featured_img"> <img alt="" src="{{ new.image.url }}"> <span class="overlay"></span> </a>
-                          <figcaption> <a href="{% url 'news_detail' new.id %}">{{ new.title| truncatewords:6 }}</a> </figcaption>
+                        <figure class="bsbig_fig"> <a href="{{ new.get_absolute_url }}" class="featured_img"> <img alt="" src="{{ new.image.url }}"> <span class="overlay"></span> </a>
+                          <figcaption> <a href="{{ new.get_absolute_url }}">{{ new.title| truncatewords:6 }}</a> </figcaption>
                           <p>{{ new.title }}</p>
                         </figure>
                       </li>
@@ -92,8 +92,8 @@
                         {% for new in jamiyat_news %}
                             {% if forloop.counter > 1 %}
                       <li>
-                        <div class="media wow fadeInDown"> <a href="{% url 'news_detail' new.id %}" class="media-left"> <img alt="" src="{{ new.image.url }}"> </a>
-                          <div class="media-body"> <a href="{% url 'news_detail' new.id %}" class="catg_title">{{ new.title }}</a> </div>
+                        <div class="media wow fadeInDown"> <a href="{{ new.get_absolute_url }}" class="media-left"> <img alt="" src="{{ new.image.url }}"> </a>
+                          <div class="media-body"> <a href="{{ new.get_absolute_url }}" class="catg_title">{{ new.title }}</a> </div>
                         </div>
                       </li>
                             {% endif %}
@@ -109,8 +109,8 @@
                         {% for new in texnologiya_news %}
                             {% if forloop.first %}
                       <li>
-                        <figure class="bsbig_fig wow fadeInDown"> <a href="{% url 'news_detail' new.id %}" class="featured_img"> <img alt="" src="{{ new.image.url }}"> <span class="overlay"></span> </a>
-                          <figcaption> <a href="pages/single_page.html">{{ new.title|truncatewords:6 }}</a> </figcaption>
+                        <figure class="bsbig_fig wow fadeInDown"> <a href="{{ new.get_absolute_url }}" class="featured_img"> <img alt="" src="{{ new.image.url }}"> <span class="overlay"></span> </a>
+                          <figcaption> <a href="{{ new.get_absolute_url }}">{{ new.title|truncatewords:6 }}</a> </figcaption>
                           <p>{{ new.title }}</p>
                         </figure>
                       </li>
@@ -123,8 +123,8 @@
                         {% for new in texnologiya_news %}
                             {% if forloop.counter > 1 %}
                       <li>
-                        <div class="media wow fadeInDown"> <a href="{% url 'news_detail' new.id %}" class="media-left"> <img alt="" src="{{ new.image.url }}"> </a>
-                          <div class="media-body"> <a href="{% url 'news_detail' new.id %}" class="catg_title">{{ new.title }}</a> </div>
+                        <div class="media wow fadeInDown"> <a href="{{ new.get_absolute_url }}" class="media-left"> <img alt="" src="{{ new.image.url }}"> </a>
+                          <div class="media-body"> <a href="{{ new.get_absolute_url }}" class="catg_title">{{ new.title }}</a> </div>
                         </div>
                       </li>
                             {% endif %}
@@ -177,8 +177,8 @@
                       {% for new in sport_news %}
                           {% if forloop.first %}
                     <li>
-                      <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="{% url 'news_detail' new.id %}"> <img src="{{ new.image.url }}" alt=""> <span class="overlay"></span> </a>
-                        <figcaption> <a href="{% url 'news_detail' new.id %}">{{ new.title|truncatewords:5 }}</a> </figcaption>
+                      <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="{{ new.get_absolute_url }}"> <img src="{{ new.image.url }}" alt=""> <span class="overlay"></span> </a>
+                        <figcaption> <a href="{{ new.get_absolute_url }}">{{ new.title|truncatewords:5 }}</a> </figcaption>
                         <p>{{ new.title }}</p>
                       </figure>
                     </li>
@@ -193,8 +193,8 @@
                       {% for new in sport_news %}
                           {% if forloop.counter > 1 %}
                     <li>
-                      <div class="media wow fadeInDown"> <a href="{% url 'news_detail' new.id %}" class="media-left"> <img alt="" src="{{ new.image.url }}"> </a>
-                        <div class="media-body"> <a href="{% url 'news_detail' new.id %}" class="catg_title">{{ new.title }}</a> </div>
+                      <div class="media wow fadeInDown"> <a href="{{ new.get_absolute_url }}" class="media-left"> <img alt="" src="{{ new.image.url }}"> </a>
+                        <div class="media-body"> <a href="{{ new.get_absolute_url }}" class="catg_title">{{ new.title }}</a> </div>
                       </div>
                     </li>
                           {% endif %}
