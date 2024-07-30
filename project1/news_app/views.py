@@ -1,7 +1,8 @@
 from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import detail, ListView
+from django.urls import reverse_lazy
+from django.views.generic import detail, ListView, UpdateView, CreateView, DeleteView, DetailView
 from .models import NewsModel, Category
 from .forms import ContactForm
 
@@ -37,7 +38,7 @@ def news_detail(request, news):
 #         'local_news': iqdisodiyot_news,
 #         'local_new_one': local_top_one_new
 #     }
-#     return render(request, template_name='news/home.html', context=context)
+#     return render(request, template_name='news/home.html', context=context) #home
 
 class HomeView(ListView):
     model = NewsModel
@@ -45,6 +46,7 @@ class HomeView(ListView):
     context_object_name = 'news'
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        self.request.META['title'] = 'Home'
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['latest_news'] = NewsModel.published.all().order_by('-published_time')[:5]
@@ -62,13 +64,13 @@ def ErrorView(request):
 
 
 def aboutView(request):
-    request.META['title'] = 'About'
+    request.META['title'] = 'Biz haqimizda'
     context = {}
     return render(request, template_name='news/about_page.html', context=context)
 
 
 def contactView(request):
-    request.META['title'] = 'Contact'
+    request.META['title'] = 'Biz bilan aloqa'
     form = ContactForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
         form.save()
@@ -81,12 +83,12 @@ def contactView(request):
 
 
 def foreignNewsView(request):
-    request.META['title'] = 'Xorij yangiliklari'
+    request.META['title'] = 'Jahon yangiliklari'
     foreign_news = NewsModel.published.filter(category__name='Jahon')
     context = {
         "foreign_news": foreign_news
     }
-    return render(request, template_name='news/xorij.html', context=context)
+    return render(request, template_name='news/jahon.html', context=context)
 
 
 def economyNewsView(request):
@@ -117,7 +119,7 @@ def technologyNewsView(request):
 
 
 def sportNewsView(request):
-    request.META['title'] = 'Sport'
+    request.META['title'] = 'Sport yangiliklari'
     sport_news = NewsModel.published.filter(category__name='Sport')
     context = {
         "sport_news": sport_news
@@ -125,3 +127,7 @@ def sportNewsView(request):
     return render(request, template_name='news/sport.html', context=context)
 
 
+class UpdateNewsView(UpdateView):
+    model = NewsModel
+    field = ['title', 'slug', 'body', 'image', 'category']
+    template_name = 'crud functions/update.html'

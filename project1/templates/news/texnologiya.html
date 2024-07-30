@@ -2,18 +2,20 @@
 {% load static %}
 
 {% block content %}
-    <h1 class="text-center text-success"><strong>Texnologiya yangiliklari</strong></h1> <br>
+    <h1 class="text-center text-success" style="font-family: Georgia; color: #e8e8e8"><strong>Texnologiya yangiliklari</strong></h1> <br>
 
             {% for new in technology_news %}
-                    <div class="big-box" style="display: flex; align-items: center; justify-content: space-around; background-color: #d8dee9    ">
+                    <div class="big-box" style="display: flex; align-items: center; justify-content: space-around; background-color: #d8dee9;">
                         <div class="item1" style="width: 40%">
                             <a href="{{ new.get_absolute_url }}" style="display: inline-block">
                                 <img style="width: 30%" src="{{ new.image.url }}" alt="404">
                             </a>
                         </div>
                         <div class="item2" style="width: 60%">
+                            <p>{{ new.created_time|date:'G:i, d/m/y' }}</p>
                             <h4 style="font-family: sans-serif">
                                 {{ new.title }}
+
                             </h4>
                         </div>
                     </div>

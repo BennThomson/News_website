@@ -8,6 +8,7 @@ from config import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('news_app.urls')),
+    path('user/', include('users.urls')),
 ]
 
 if settings.DEBUG:
