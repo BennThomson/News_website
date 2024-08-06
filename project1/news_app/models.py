@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class PublishedManager(models.Manager):
@@ -65,3 +66,19 @@ class ContactModel(models.Model):
     class Meta:
         verbose_name = 'Contact'
         verbose_name_plural = 'Contacts'
+
+
+class CommentModel(models.Model):
+    news = models.ForeignKey(NewsModel, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    message = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.message} by {self.user}"
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ['created_time']

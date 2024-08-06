@@ -1,5 +1,5 @@
 from django import forms
-from .models import ContactModel
+from .models import ContactModel, CommentModel
 
 
 class ContactForm(forms.ModelForm):
@@ -7,3 +7,8 @@ class ContactForm(forms.ModelForm):
         model = ContactModel
         fields = '__all__'
 
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = CommentModel
+        fields = ['message']

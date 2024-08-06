@@ -1,10 +1,17 @@
 from urllib import request
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import detail, ListView, UpdateView, CreateView, DeleteView, DetailView
-from .models import NewsModel, Category
-from .forms import ContactForm
+
+from hitcount.utils import get_hitcount_model
+from hitcount.views import HitCountMixin
+
+from .models import NewsModel, Category, CommentModel
+from .forms import ContactForm, CommentForm
 
 
 def NewsView(request):
@@ -19,10 +26,40 @@ def NewsView(request):
 def news_detail(request, news):
     request.META['title'] = 'News-detail'
     news = get_object_or_404(NewsModel, slug=news, status=NewsModel.Status.Published)
+    related_posts = NewsModel.published.filter(category=news.category)[:4]
+    
+    context = {}
+    hit_count = get_hitcount_model().objects.get_for_object(news)
+    hits = hit_count.hits
+    hitcontext = context['hitcount'] = {'pk': hit_count.pk}
+    hit_count_response = HitCountMixin.hit_count(request, hit_count)
+    if hit_count_response.hit_counted:
+        hits += 1
+        hitcontext['hit_counted'] = hit_count_response.hit_counted
+        hitcontext['hit_message'] = hit_count_response.hit_message
+        hitcontext['total_hits'] = hits
+
+    comments = news.comments.filter(status=True)
+    comment_form = CommentForm()
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.news = news
+            new_comment.user = request.user
+            new_comment.save()
+            new_comment = CommentForm()
     context = {
-        'news': news
+        'new': news,
+        'related_posts': related_posts,
+        'comment_form': comment_form,
+        'comments': comments,
+        'new_comment': new_comment,
     }
     return render(request, 'news/single_page.html', context)
+
+
 
 
 # def homeView(request):
@@ -62,13 +99,14 @@ def ErrorView(request):
     context = {}
     return render(request, template_name='news/404.html', context=context)
 
-
+@login_required
 def aboutView(request):
     request.META['title'] = 'Biz haqimizda'
     context = {}
     return render(request, template_name='news/about_page.html', context=context)
 
 
+@login_required
 def contactView(request):
     request.META['title'] = 'Biz bilan aloqa'
     form = ContactForm(request.POST or None)
@@ -131,3 +169,15 @@ class UpdateNewsView(UpdateView):
     model = NewsModel
     field = ['title', 'slug', 'body', 'image', 'category']
     template_name = 'crud functions/update.html'
+
+
+class NewsResultView(ListView):
+    model = NewsModel
+    template_name = 'news/search_news.html'
+    context_object_name = 'news_list'
+
+    def get_queryset(self):
+        self.request.META['title'] = 'Qidirilgan Yangiliklar'
+        query = self.request.GET.get('q')
+        return NewsModel.objects.filter(Q(title__icontains=query) | Q(body__icontains=query))
+

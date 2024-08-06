@@ -1,11 +1,17 @@
 {% extends 'news/base.html' %}
 {% load static %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+	Ro'yxatdan o'tish
+{% endblock %}
 
 {% block  content %}
 	<h1>Ro'yxatdan o'tish</h1>
     <h4>Ro'yxatdan o'tish uchun quyidagi formni to'ldiring:</h4>
     <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Ro'yxatdan o'tish</button>
+        {{ form|crispy }}
+        <button class="btn btn-success" style="margin: 10px auto"
+                type="submit">Ro'yxatdan o'tish</button>
     </form>
 {% endblock %}

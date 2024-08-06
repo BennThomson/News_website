@@ -1,0 +1,18 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% for new in news_list %}
+    <div>
+        <a href="{% url 'news_detail' new.slug %}">
+            <img src="{{ new.image.url }}" alt="404" width="500px" height="350px">
+        </a>
+        <div class="card-body">
+            <h3 class="card-text">
+                {{ new.title }}
+            </h3>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

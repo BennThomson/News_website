@@ -1,10 +1,11 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import Loginform, UserCreationModel
 
 
 def loginView(request):
+    request.META['title'] = 'Login'
     form = Loginform()
     if request.method == 'POST':
         form = Loginform(request.POST)
@@ -29,11 +30,13 @@ def loginView(request):
 
 
 def logoutView(request):
+    request.META['title'] = 'Logout'
     logout(request)
     return render(request, "registration/logged_out.html", {})
 
 
 def profileView(request):
+    request.META['title'] = 'Profile'
     user = request.user
     context = {
         'user': user
@@ -57,5 +60,6 @@ def useCreationView(request):
     return render(request, template_name='registration/sign_up.html', context={
         'form': form
     })
+
 
 

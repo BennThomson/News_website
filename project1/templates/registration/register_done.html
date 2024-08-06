@@ -1,6 +1,10 @@
 {% extends 'news/base.html' %}
 {% load static %}
 
+{% block title %}
+	Ro'yxatdan o'tish tugatildi
+{% endblock %}
+
 {% block  content %}
 	<h1>Ro'yxatdan Muvaffaqiyatli o'tildi</h1>
     <h4>Endi saytga kirish uchun <a href="{% url 'login' %}">login</a> qismiga o'ting!</h4>

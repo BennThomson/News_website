@@ -10,7 +10,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 body {
-    background: #4c566a !important;
+    background-color: #FF3CAC;
+    background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
 }
 
 ul {
@@ -1873,6 +1874,10 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
         .pagination > li > a, .pagination > li > span {
             padding: 4px 8px
         }
+
+        .search_part {
+            width: 100%;
+        }
     }
     @media (max-width: 320px ) {
         .sociallink_nav li a {
@@ -1886,4 +1891,5 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
         .nav-tabs > li {
             width: 32.1%
         }
-    }}
+    }
+}
