@@ -3,6 +3,7 @@
 {% load crispy_forms_filters %}
 {% load hitcount_tags %}
 
+
 {% block content %}
     <section id="contentSection">
         <div class="row">
@@ -12,20 +13,25 @@
                         <ol class="breadcrumb">
                             <li><a href="{% url 'home' %}">Home</a></li>
                             <li style="color: #e8e8e8">{{ new.category }}</li>
-                            <li class="active">info</li>
+                            <li class="active">{{ new.slug }}</li>
+
                         </ol>
                         <h1>{{ new.title }}</h1>
                         
                         <div class="post_commentbox"><a href="#"><i class="fa fa-user"></i>Wpfreeware</a> <span><i
                                 class="fa fa-calendar"></i>{{ new.published_time }}</span> <a href="#"><i
-                                class="fa fa-tags"></i>{{ new.category }}</a></div>
+                                class="fa fa-tags"></i>{{ new.category }}</a>
+                                <a href="" class="fa fa-eye" style="color: red">
+                                    {% get_hit_count for new %}
+                                </a>
+                        </div>
                         <div class="single_page_content"><img class="img-center" src="{{ new.image.url }}" alt="404">
                             <p><span
                                     style="font-family: Georgia; line-height: 30px; font-size: 16px">{{ new.body }}</span>
                             </p>
                             <h2>{{ new.published_time }}</h2>
-                            <h3>Ko'rilgan Soni:{% get_hit_count for new %}</h3>
-                            {#                    {% if user.is_superuser %}#}
+{#                            <h3>Ko'rilgan Soni:{% get_hit_count for new %}</h3>#}
+{#                                                {% if user.is_superuser %}#}
                             {#                        <h4><a href="#">Malumotni tahrirlash</a></h4>#}
                             {#                        <h4><a href="#">Malumotni o'chirish</a></h4>#}
                             {#                    {% endif %}#}

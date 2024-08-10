@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -35,6 +36,7 @@ def logoutView(request):
     return render(request, "registration/logged_out.html", {})
 
 
+@login_required
 def profileView(request):
     request.META['title'] = 'Profile'
     user = request.user

@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-@o5zsj^$zq4f+yfxyp6d5ni6u!q@03wsbvi859cqs9gljod@^&
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -16,8 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     "crispy_forms",
     "crispy_bootstrap5",
+
     'hitcount',
     'news_app',
     'users',

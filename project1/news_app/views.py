@@ -179,5 +179,5 @@ class NewsResultView(ListView):
     def get_queryset(self):
         self.request.META['title'] = 'Qidirilgan Yangiliklar'
         query = self.request.GET.get('q')
-        return NewsModel.objects.filter(Q(title__icontains=query) | Q(body__icontains=query))
+        return NewsModel.objects.filter(title__icontains=query)
 
